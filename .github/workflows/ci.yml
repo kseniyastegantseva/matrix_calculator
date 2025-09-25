@@ -13,15 +13,27 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y g++ doxygen graphviz
+        sudo apt-get install -y g++ cmake doxygen graphviz libgtest-dev googletest
 
-    - name: Build application
+    - name: Build GTest
       run: |
-        g++ -o matrix_app src/matrix.cpp src/main.cpp
-        g++ -o test_app src/matrix.cpp src/test.cpp
+        cd /usr/src/googletest
+        sudo mkdir build && cd build
+        sudo cmake ..
+        sudo make
+        sudo make install
+
+    - name: Build application with CMake
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
 
     - name: Run tests
-      run: ./matrix_tests
+      run: |
+        cd build
+        ./matrix_calculator  # или имя вашего тестового приложения
 
     - name: Generate documentation
       run: doxygen Doxyfile
@@ -29,4 +41,5 @@ jobs:
     - name: Check memory leaks
       run: |
         sudo apt-get install -y valgrind
-        valgrind --leak-check=full ./matrix_tests
+        cd build
+        valgrind --leak-check=full ./matrix_calculator
