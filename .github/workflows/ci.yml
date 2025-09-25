@@ -13,23 +13,20 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake g++ doxygen graphviz
+        sudo apt-get install -y g++ doxygen graphviz
 
-    - name: Configure and Build
+    - name: Build application
       run: |
-        cmake -B build
-        cmake --build build
+        g++ -o matrix_app src/matrix.cpp src/main.cpp
+        g++ -o test_app src/matrix.cpp src/test.cpp
 
-    - name: Run Tests
-      run: |
-        cd build
-        ctest --output-on-failure
+    - name: Run tests
+      run: ./matrix_tests
 
-    - name: Generate Documentation
-      run: |
-        doxygen Doxyfile
+    - name: Generate documentation
+      run: doxygen Doxyfile
 
-    - name: Verify Documentation
+    - name: Check memory leaks
       run: |
-        ls -la docs/html/index.html
-        echo "Documentation generated successfully"
+        sudo apt-get install -y valgrind
+        valgrind --leak-check=full ./matrix_tests
