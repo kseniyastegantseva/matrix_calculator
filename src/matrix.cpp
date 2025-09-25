@@ -107,3 +107,31 @@ double matrix_sum(Matrix m) {
     }
     return sum;
 }
+#include <fstream>
+#include <stdexcept>
+#include "matrix.h"
+
+void matrix_to_file(Matrix m, const char* filename) {
+    if (m.data == nullptr || m.rows <= 0 || m.cols <= 0) {
+        throw std::invalid_argument("Matrix is empty or invalid");
+    }
+
+    std::ofstream fout(filename);
+    if (!fout.is_open()) {
+        throw std::runtime_error("Cannot open file for writing");
+    }
+
+    // Сначала сохраняем размеры матрицы
+    fout << m.rows << " " << m.cols << "\n";
+
+    // Записываем саму матрицу
+    for (int i = 0; i < m.rows; i++) {
+        for (int j = 0; j < m.cols; j++) {
+            fout << m.data[i][j];
+            if (j < m.cols - 1) fout << " ";
+        }
+        fout << "\n";
+    }
+
+    fout.close();
+}

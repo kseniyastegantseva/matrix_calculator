@@ -17,5 +17,5 @@ Matrix matrix_transpose(Matrix m);
 void   print_matrix(Matrix m);
 Matrix matrix_from_array(double* data, int rows, int cols);
 
-// Индивидуальное задание
-double matrix_sum(Matrix m);
+// Сохранение/загрузка
+void   matrix_to_file(Matrix m, const char* filename);  // <-- добавить
