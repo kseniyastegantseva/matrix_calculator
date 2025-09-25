@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 
@@ -107,9 +108,7 @@ double matrix_sum(Matrix m) {
     }
     return sum;
 }
-#include <fstream>
-#include <stdexcept>
-#include "matrix.h"
+
 
 void matrix_to_file(Matrix m, const char* filename) {
     if (m.data == nullptr || m.rows <= 0 || m.cols <= 0) {

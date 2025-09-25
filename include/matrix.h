@@ -12,6 +12,7 @@ void   free_matrix(Matrix m);
 Matrix matrix_add(Matrix a, Matrix b);
 Matrix matrix_multiply(Matrix a, Matrix b);
 Matrix matrix_transpose(Matrix m);
+double matrix_sum(Matrix m);
 
 // Вспомогательные функции
 void   print_matrix(Matrix m);
