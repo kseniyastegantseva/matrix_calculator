@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Библиотека проекта
-add_library(matrix_lib src/matrix.cpp)
+add_library(matrix_lib src/matrix.cpp include/matrix.h)
 target_include_directories(matrix_lib PUBLIC include)
 
 # Исполняемый файл
